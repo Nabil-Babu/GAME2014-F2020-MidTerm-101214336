@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/**
+    BulletController.cs
+    Author: Tom T
+    Contributor: Nabil Babu
+    101214336
+    Oct 20th 2020
+*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,10 +24,10 @@ public class BulletController : MonoBehaviour, IApplyDamage
         {
             return _landscapeMode;
         } 
-        set
+        set // The set property also changes the rotation
         {
             _landscapeMode = value;
-            if(value == true)
+            if(_landscapeMode == true)
             {
                 transform.rotation = Quaternion.Euler(0,0,-90);
             } 

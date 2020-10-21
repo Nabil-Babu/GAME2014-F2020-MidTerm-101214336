@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/**
+    BulletManager.cs
+    Author: Tom T
+    Contributor: Nabil Babu
+    101214336
+    Oct 20th 2020
+*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +37,11 @@ public class BulletManager : MonoBehaviour
         _BuildBulletPool();
     }
 
+    void Update()
+    {
+        DetectOrientation();
+    }
+
     private void _BuildBulletPool()
     {
         // create empty Queue structure
@@ -49,7 +61,11 @@ public class BulletManager : MonoBehaviour
         newBullet.transform.position = position;
         if(_landscapeMode)
         {
-             newBullet.GetComponent<BulletController>().LandscapeMode = true; 
+            newBullet.GetComponent<BulletController>().LandscapeMode = true; 
+        } 
+        else 
+        {
+            newBullet.GetComponent<BulletController>().LandscapeMode = false;
         }
         return newBullet;
     }
@@ -63,5 +79,23 @@ public class BulletManager : MonoBehaviour
     {
         returnedBullet.SetActive(false);
         m_bulletPool.Enqueue(returnedBullet);
+    }
+
+    void DetectOrientation()
+    {
+        switch(Input.deviceOrientation)
+        {
+            case DeviceOrientation.LandscapeLeft:
+                this.LandscapeMode = true;
+                break;
+            case DeviceOrientation.LandscapeRight:
+                this.LandscapeMode = true;
+                break;
+            case DeviceOrientation.Portrait:
+                this.LandscapeMode = false;
+                break;
+            case DeviceOrientation.Unknown:
+                break;
+        }
     }
 }

@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/**
+    EnemyController.cs
+    Author: Tom T
+    Contributor: Nabil Babu
+    101214336
+    Oct 20th 2020
+*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

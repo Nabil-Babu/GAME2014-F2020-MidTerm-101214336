@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/**
+    PlayerController.cs
+    Author: Tom T
+    Contributor: Nabil Babu
+    101214336
+    Oct 20th 2020
+*/
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
@@ -28,7 +35,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector3 portraitPosition;
     [SerializeField]
-    private Vector3 landscapeRotation;
+    private DeviceOrientation _currentSetOrientation;
+    [SerializeField]
+    private DeviceOrientation detectedOrientation;
     [SerializeField]
     private bool _landscapeMode = true;
     public bool LandscapeMode 
@@ -37,16 +46,18 @@ public class PlayerController : MonoBehaviour
         {
             return _landscapeMode;
         } 
-        set
+        set // The set property also changes the rotation
         {
             _landscapeMode = value;
-            if(value == true)
+            if(_landscapeMode)
             {
                 transform.rotation = Quaternion.Euler(0,0,-90);
+                SetLandscapePosition();
             } 
             else 
             {
                 transform.rotation = Quaternion.Euler(0,0,0);
+                SetPortraitPosition();
             }
         } 
     }
@@ -63,7 +74,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DetectOrientation();
         if(_landscapeMode)
         {
             _MoveLandscape();
@@ -212,9 +223,58 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Vector2 newVelocity = m_rigidBody.velocity + new Vector2(direction * horizontalSpeed, 0.0f);
+            Vector2 newVelocity = m_rigidBody.velocity + new Vector2(0.0f, direction * horizontalSpeed);
             m_rigidBody.velocity = Vector2.ClampMagnitude(newVelocity, maxSpeed);
             m_rigidBody.velocity *= 0.99f;
         }
+    }
+
+    void DetectOrientation()
+    {
+        detectedOrientation = Input.deviceOrientation;
+        if(detectedOrientation != _currentSetOrientation)
+        {
+            switch(detectedOrientation)
+            {
+                case DeviceOrientation.LandscapeLeft:
+                    _currentSetOrientation = DeviceOrientation.LandscapeLeft;
+                    this.LandscapeMode = true;
+                    break;
+                case DeviceOrientation.LandscapeRight:
+                    _currentSetOrientation = DeviceOrientation.LandscapeRight;
+                    this.LandscapeMode = true;
+                    break;
+                case DeviceOrientation.Portrait:
+                    _currentSetOrientation = DeviceOrientation.Portrait;
+                    this.LandscapeMode = false;
+                    break;
+                case DeviceOrientation.Unknown:
+                    break;
+            }
+        }
+    }
+
+    void SetLandscapePosition()
+    {
+        Debug.Log("Setting Landscape Mode");
+        transform.position = landScapePosition;
+    }
+
+    void SetPortraitPosition()
+    {
+        Debug.Log("Setting Portrait Mode");
+        transform.position = portraitPosition;
+    }
+    public float scale(float OldMin, 
+                       float OldMax, 
+                       float NewMin, 
+                       float NewMax, 
+                       float OldValue){
+ 
+        float OldRange = (OldMax - OldMin);
+        float NewRange = (NewMax - NewMin);
+        float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
+ 
+        return(NewValue);
     }
 }

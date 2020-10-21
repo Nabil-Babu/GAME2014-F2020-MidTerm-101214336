@@ -1,4 +1,11 @@
-﻿using System.Collections;
+﻿/**
+    BulletManager.cs
+    Author: Tom T
+    Contributor: Nabil Babu
+    101214336
+    Oct 20th 2020
+*/
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +15,39 @@ public class BackgroundController : MonoBehaviour
     public float verticalBoundary;
     public float horizontalSpeed;
     public float horizontalBoundary;
+    [SerializeField]
+    private Vector3 landscapeScale;
+    [SerializeField]
+    private Vector3 portraitScale;
 
-    private bool _landScapeMode = true; 
+    private bool _landscapeMode; 
+    public bool LandscapeMode 
+    { 
+        get
+        {
+            return _landscapeMode;
+        } 
+        set // The set method also changes the rotation and scale
+        {
+            _landscapeMode = value;
+            if(_landscapeMode)
+            {
+                transform.rotation = Quaternion.Euler(0,0,-90);
+                transform.localScale = landscapeScale;
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0,0,0);
+                transform.localScale = portraitScale;
+            }
+            
+        } 
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if(_landScapeMode)
+        if(_landscapeMode)
         {
             _MoveLandscape();
             _CheckBoundsLandscape();
