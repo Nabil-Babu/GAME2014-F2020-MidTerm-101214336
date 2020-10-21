@@ -1,9 +1,9 @@
 ﻿/**
     EnemyController.cs
-    Author: Tom T
+    Author: Prof. Tommy Tsiliopoulos
     Contributor: Nabil Babu
     101214336
-    Oct 20th 2020
+    Oct 21th 2020
 */
 using System.Collections;
 using System.Collections.Generic;

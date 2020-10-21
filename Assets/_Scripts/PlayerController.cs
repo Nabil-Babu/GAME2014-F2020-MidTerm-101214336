@@ -1,9 +1,9 @@
 ﻿/**
     PlayerController.cs
-    Author: Tom T
+    Author: Prof. Tommy Tsiliopoulos
     Contributor: Nabil Babu
     101214336
-    Oct 20th 2020
+    Oct 21th 2020
 */
 using System.Collections;
 using System.Collections.Generic;
@@ -59,8 +59,6 @@ public class PlayerController : MonoBehaviour
             }
         } 
     }
-    //private bool _iOSDevice = false;
-    //private bool _Android = false;  
 
     // Start is called before the first frame update
     void Start()
@@ -228,6 +226,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Checks for current orientation of the device and sets it on change
     void DetectOrientation()
     {
         detectedOrientation = Input.deviceOrientation;
@@ -252,13 +251,13 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
+    // Settings for when this object is in a Landscape scene
     void SetLandscapePositionandRotation()
     {
         transform.position = landscapePosition;
         transform.rotation = Quaternion.Euler(0,0,-90);
     }
-
+    // Settings for when this object is in a portrait scene
     void SetPortraitPositionandRotation()
     {
         transform.position = portraitPosition;

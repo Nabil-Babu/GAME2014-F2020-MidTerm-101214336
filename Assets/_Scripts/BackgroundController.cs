@@ -1,6 +1,6 @@
 ﻿/**
     BulletManager.cs
-    Author: Tom T
+    Author: Prof. Tommy Tsiliopoulos
     Contributor: Nabil Babu
     101214336
     Oct 20th 2020
@@ -59,12 +59,12 @@ public class BackgroundController : MonoBehaviour
         }
         
     }
-
+    // reseting the position of the background in portrait mode
     private void _Reset()
     {
         transform.position = new Vector3(0.0f, verticalBoundary);
     }
-
+    // Moving background in portrait mode
     private void _Move()
     {
         transform.position -= new Vector3(0.0f, verticalSpeed) * Time.deltaTime;
@@ -78,12 +78,12 @@ public class BackgroundController : MonoBehaviour
             _Reset();
         }
     }
-
+    // Resetting the background for landscape mode
     private void _ResetLandscape()
     {
         transform.position = new Vector3(horizontalBoundary, 0.0f);
     }
-
+    // Moving the background in landscape mode
     private void _MoveLandscape()
     {
         transform.position -= new Vector3(horizontalSpeed, 0.0f) * Time.deltaTime;

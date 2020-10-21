@@ -2,7 +2,7 @@
     BackgroundManager.cs
     Author: Nabil Babu
     101214336
-    Oct 20th 2020
+    Oct 21th 2020
 */
 using System.Collections;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ public class BackgroundManager : MonoBehaviour
     {
         DetectAndSetOrientation();
     }
-
+    // Checks for current orientation of the device and sets it on change
     void DetectAndSetOrientation()
     {
         detectedOrientation = Input.deviceOrientation;
@@ -72,20 +72,23 @@ public class BackgroundManager : MonoBehaviour
             }
         }
     }
-
+    // This arranges the backgrounds according to their previous y values to their new x values 
     void SetLandscapeMode()
     {
+        // Flip Landscape flags for both backgrounds 
         background1.LandscapeMode = true;
         background2.LandscapeMode = true;
+        // Scale position to new boundaries 
         float xPos1 = scale(-background1.verticalBoundary, 
                             background1.verticalBoundary, 
                             -background1.horizontalBoundary, 
                             background1.horizontalBoundary, 
                             background1.transform.position.y);
         background1.transform.position = new Vector3(xPos1,0,0);
+        // Set background position back by boundary limit
         background2.transform.position = new Vector3(xPos1+background2.horizontalBoundary,0,0);
     }
-
+    // This functions takes the background previous x positional value and scales it to a matching y value
     void SetPortraitMode()
     {
         background1.LandscapeMode = false;
@@ -98,7 +101,7 @@ public class BackgroundManager : MonoBehaviour
         background1.transform.position = new Vector3(0,yPos1,0);
         background2.transform.position = new Vector3(0,yPos1+background2.verticalBoundary,0);
     }
-
+    // Scale method for mapping a value from one range to another. 
     public float scale(float OldMin, 
                        float OldMax, 
                        float NewMin, 

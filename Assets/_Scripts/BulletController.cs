@@ -1,6 +1,6 @@
 ﻿/**
     BulletController.cs
-    Author: Tom T
+    Author: Prof. Tommy Tsiliopoulos
     Contributor: Nabil Babu
     101214336
     Oct 20th 2020
@@ -72,12 +72,12 @@ public class BulletController : MonoBehaviour, IApplyDamage
             bulletManager.ReturnBullet(gameObject);
         }
     }
-
+    // Same as _Move but for Landscape mode
     private void _MoveLandscape()
     {
         transform.position += new Vector3(verticalSpeed, 0.0f, 0.0f) * Time.deltaTime;
     }
-
+    // Checking boundaries in landscape mode
     private void _CheckBoundsLandscape()
     {
         if (transform.position.x > horizontalBoundary)
