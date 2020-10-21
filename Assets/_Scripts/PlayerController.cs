@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rigidBody;
     private Vector3 m_touchesEnded;
     [SerializeField]
-    private Vector3 landScapePosition;
+    private Vector3 landscapePosition;
     [SerializeField]
     private Vector3 portraitPosition;
     [SerializeField]
@@ -51,13 +51,11 @@ public class PlayerController : MonoBehaviour
             _landscapeMode = value;
             if(_landscapeMode)
             {
-                transform.rotation = Quaternion.Euler(0,0,-90);
-                SetLandscapePosition();
+                SetLandscapePositionandRotation();
             } 
             else 
             {
-                transform.rotation = Quaternion.Euler(0,0,0);
-                SetPortraitPosition();
+                SetPortraitPositionandRotation();
             }
         } 
     }
@@ -69,6 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         m_touchesEnded = new Vector3();
         m_rigidBody = GetComponent<Rigidbody2D>();
+        DetectOrientation();
     }
 
     // Update is called once per frame
@@ -254,27 +253,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void SetLandscapePosition()
+    void SetLandscapePositionandRotation()
     {
-        Debug.Log("Setting Landscape Mode");
-        transform.position = landScapePosition;
+        transform.position = landscapePosition;
+        transform.rotation = Quaternion.Euler(0,0,-90);
     }
 
-    void SetPortraitPosition()
+    void SetPortraitPositionandRotation()
     {
-        Debug.Log("Setting Portrait Mode");
         transform.position = portraitPosition;
-    }
-    public float scale(float OldMin, 
-                       float OldMax, 
-                       float NewMin, 
-                       float NewMax, 
-                       float OldValue){
- 
-        float OldRange = (OldMax - OldMin);
-        float NewRange = (NewMax - NewMin);
-        float NewValue = (((OldValue - OldMin) * NewRange) / OldRange) + NewMin;
- 
-        return(NewValue);
+        transform.rotation = Quaternion.Euler(0,0,0);
     }
 }
